@@ -27,22 +27,25 @@ for (const file of eventFiles) {
   client.on(event.name, (...args) => event.execute(...args, client));
 }
 
-client.login(token);
 client.once('ready', () => {
   console.log('El bot está listo y en línea!');
   
   // Verificar si client.user está disponible
   if (client.user) {
-    // Establecer el estado solo si client.user está disponible
-    client.user.setPresence({
-      status: 'online', // Puede ser 'idle', 'dnd' (No molestar), 'invisible'
-      activities: [
-        {
-          name: 'Tu comando favorito', // El texto que aparece (por ejemplo, "Jugando a...")
-          type: ActivityType.Playing, // El tipo de actividad (Playing, Listening, Watching, etc.)
-        },
-      ],
-    }).catch(console.error); // Captura cualquier error y lo imprime en consola
+    try {
+      // Establecer el estado solo si client.user está disponible
+      client.user.setPresence({
+        status: 'online', // Puede ser 'idle', 'dnd' (No molestar), 'invisible'
+        activities: [
+          {
+            name: 'Tu comando favorito', // El texto que aparece (por ejemplo, "Jugando a...")
+            type: ActivityType.Playing, // El tipo de actividad (Playing, Listening, Watching, etc.)
+          },
+        ],
+      });
+    } catch (error) {
+      console.error('Error al establecer el estado del bot:', error); // Captura cualquier error y lo imprime en consola
+    }
   } else {
     console.log('El bot no está conectado correctamente.');
   }
