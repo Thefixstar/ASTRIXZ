@@ -21,7 +21,7 @@ for (const file of commandFiles) {
 }
 
 // Cargar eventos
-const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
+const eventFiles = fs.readdirSync('./events/').filter(file => file.endsWith('.js'));
 for (const file of eventFiles) {
   const event = require(`./events/${file}`);
   client.on(event.name, (...args) => event.execute(...args, client));
