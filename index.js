@@ -27,6 +27,7 @@ for (const file of eventFiles) {
   client.on(event.name, (...args) => event.execute(...args, client));
 }
 
+client.login(token);
 client.once('ready', () => {
   console.log('El bot está listo y en línea!');
   
