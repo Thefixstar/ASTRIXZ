@@ -27,19 +27,22 @@ for (const file of eventFiles) {
   client.on(event.name, (...args) => event.execute(...args, client));
 }
 
-client.login(token);
 client.once('ready', () => {
-    console.log(`✅ Bot conectado como ${client.user.tag}`);
-  });
-
-    // Establecer el estado personalizado solo después de que el bot esté listo
+  console.log('El bot está listo y en línea!');
+  
+  // Verificar si client.user está disponible
+  if (client.user) {
+    // Establecer el estado solo si client.user está disponible
     client.user.setPresence({
-      status: 'online', // También puede ser 'idle', 'dnd' (No molestar), 'invisible'
+      status: 'online', // Puede ser 'idle', 'dnd' (No molestar), 'invisible'
       activities: [
         {
-          name: 'Tlsi y Mins', // El texto que aparece (por ejemplo, "Jugando a...")
-          type: ActivityType.Watching, // El tipo de actividad (Playing, Listening, Watching, etc.)
+          name: 'Tu comando favorito', // El texto que aparece (por ejemplo, "Jugando a...")
+          type: ActivityType.Playing, // El tipo de actividad (Playing, Listening, Watching, etc.)
         },
       ],
     }).catch(console.error); // Captura cualquier error y lo imprime en consola
-  
+  } else {
+    console.log('El bot no está conectado correctamente.');
+  }
+});
