@@ -27,26 +27,34 @@ for (const file of eventFiles) {
   client.on(event.name, (...args) => event.execute(...args, client));
 }
 
+
 client.once('ready', () => {
-  console.log('El bot está listo y en línea!');
+  console.log('El bot está conectado y listo!');
   
-  // Verificar si client.user está disponible
+  // Establecer el estado del bot (por ejemplo, "Jugando a algo")
   if (client.user) {
-    try {
-      // Establecer el estado solo si client.user está disponible
-      client.user.setPresence({
-        status: 'online', // Puede ser 'idle', 'dnd' (No molestar), 'invisible'
-        activities: [
-          {
-            name: 'Tu comando favorito', // El texto que aparece (por ejemplo, "Jugando a...")
-            type: ActivityType.Playing, // El tipo de actividad (Playing, Listening, Watching, etc.)
-          },
-        ],
-      });
-    } catch (error) {
-      console.error('Error al establecer el estado del bot:', error); // Captura cualquier error y lo imprime en consola
-    }
-  } else {
-    console.log('El bot no está conectado correctamente.');
+    client.user.setPresence({
+      status: 'online',  // Puede ser 'online', 'idle', 'dnd', 'invisible'
+      activities: [
+        {
+          name: 'Tu comando favorito',  // Personaliza el texto de la actividad
+          type: ActivityType.Playing,  // Tipo de actividad
+        },
+      ],
+    }).catch(console.error);
   }
+});
+
+// Inicia sesión con el token del bot
+client.login(process.env.BOT_TOKEN)  // Asegúrate de tener tu token en variables de entorno
+  .then(() => console.log('Bot autenticado correctamente'))
+  .catch(console.error);
+
+// Mantener la aplicación viva en Railway usando un servidor HTTP
+
+const express = require('express');
+const app = express();
+app.get('/', (req, res) => res.send('¡Bot en línea y funcionando!'));
+app.listen(process.env.PORT || 3000, () => {
+  console.log('Servidor HTTP de Railway corriendo...');
 });
