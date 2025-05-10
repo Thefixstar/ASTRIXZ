@@ -1,6 +1,7 @@
 const { Client, Collection, GatewayIntentBits } = require('discord.js');
 const fs = require('fs');
-const config = require('../config.json');
+const prefix = process.env.PREFIX; 
+const token = process.env.TOKEN;   
 
 const client = new Client({
   intents: [
@@ -26,7 +27,7 @@ for (const file of eventFiles) {
   client.on(event.name, (...args) => event.execute(...args, client));
 }
 
-client.login(config.token);
+client.login(token);
 client.once('ready', () => {
     console.log(`✅ Bot conectado como ${client.user.tag}`);
   });
