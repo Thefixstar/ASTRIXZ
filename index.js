@@ -34,10 +34,10 @@ client.once('ready', () => {
   // Establecer el estado del bot (por ejemplo, "Jugando a algo")
   if (client.user) {
     client.user.setPresence({
-      status: 'online',  // Puede ser 'online', 'idle', 'dnd', 'invisible'
+      status: 'dnd',  // Puede ser 'online', 'idle', 'dnd', 'invisible'
       activities: [
         {
-          name: 'Tu comando favorito',  // Personaliza el texto de la actividad
+          name: 'Telsi y Mins',  // Personaliza el texto de la actividad
           type: ActivityType.Playing,  // Tipo de actividad
         },
       ],
